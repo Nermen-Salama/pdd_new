@@ -166,7 +166,7 @@ def get_file(fname,
         hash_algorithm = 'md5'
     datadir_base = os.path.expanduser(cache_dir)
     if not os.access(datadir_base, os.W_OK):
-        datadir_base = os.path.join('/tmp', '.pdd')
+        datadir_base = os.path.join('.tmp', '.pdd')
     datadir = os.path.join(datadir_base, cache_subdir)
     if not os.path.exists(datadir):
         os.makedirs(datadir)
@@ -203,8 +203,8 @@ def get_file(fname,
                             f.write(chunk)
             except requests.exceptions.HTTPError as e:
                 raise Exception(error_msg.format(origin, e.code, e.msg))
-            except requests.exceptions.HTTPConnectionPool as e:
-                raise Exception(error_msg.format(origin, e.code, e.msg))
+            #except requests.exceptions.HTTPConnectionPool as e:
+            #    raise Exception(error_msg.format(origin, e.code, e.msg))
             except requests.exceptions.URLRequired as e:
                 raise Exception(error_msg.format(origin, e.errno, e.reason))
         except (Exception, KeyboardInterrupt):
