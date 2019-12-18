@@ -203,8 +203,8 @@ def get_file(fname,
                             f.write(chunk)
             except requests.exceptions.HTTPError as e:
                 raise Exception(error_msg.format(origin, e.code, e.msg))
-            except requests.exceptions.HTTPConnectionPool as e:
-                raise Exception(error_msg.format(origin, e.code, e.msg))
+            #except requests.exceptions.HTTPConnectionPool as e:
+            #    raise Exception(error_msg.format(origin, e.code, e.msg))
             except requests.exceptions.URLRequired as e:
                 raise Exception(error_msg.format(origin, e.errno, e.reason))
         except (Exception, KeyboardInterrupt):
