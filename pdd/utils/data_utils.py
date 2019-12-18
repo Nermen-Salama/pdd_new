@@ -309,7 +309,7 @@ def datadir_train_test_split(origin_path, test_size, random_state=0):
             img_fnames = []
             for ext in ["*.jpg", "*.png", "*jpeg"]:
                 img_fnames.extend(
-                    glob(os.path.join(origin_path, folder, ext)))
+                    glob(os.path.join(folder, ext)))
             # set random state parameter
             rs = np.random.RandomState(random_state)
             # shuffle array
