@@ -88,10 +88,10 @@ class SiameseBatchGenerator(BaseBatchGenerator):
         class_idx = [None]*n_classes
 
         for i, folder in enumerate(class_folders):
-            img_fnames = glob(os.path.join(dirname, folder, '*.jpg'))
+            img_fnames = glob(os.path.join(folder, '*.jpg'))
             # add all image files with other extensions
             for ext in ["*.png", "*jpeg"]:
-                img_fnames.extend(glob(os.path.join(dirname, folder, ext)))
+                img_fnames.extend(glob(os.path.join(folder, ext)))
             # add filenames and corresponding labels to array
             X.extend(img_fnames)
             y.extend([i]*len(img_fnames))
