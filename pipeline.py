@@ -8,7 +8,7 @@ Created on Wed Dec 18 17:17:57 2019
 
 from pdd.datasets.grape import load_data
 
-train_data_path, test_data_path = load_data(path='moss.tar', origin ="https://github.com/A-Alaa/pdd_new/raw/master/examples/dataset.tar.gz" , split_on_train_test=True, random_state=13)
+train_data_path, test_data_path = load_data(path='moss.tar', origin ="https://github.com/A-Alaa/pdd_new/raw/master/examples/moss-db.tar" , split_on_train_test=True, random_state=13)
 
 
 from pdd.models import get_feature_extractor
