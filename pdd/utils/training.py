@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 from glob import glob
 from imageio import imread
 from keras.preprocessing.image import ImageDataGenerator
-
+from skimage.transform import  resize
 
 def checkEqual(lst):
     '''Checks if all elements in list are equal'''
@@ -175,20 +175,27 @@ class SiameseBatchGenerator(BaseBatchGenerator):
         return pairs
 
 
-    def __get_files_from_names(self, arr):
+    def __get_files_from_names(self, arr, img_shape = None):
         result = [None]*arr.size
         # read all files
+#        print(img_shape)
         for i, x in enumerate(np.nditer(arr)):
-            result[i] = imread(str(x)) / 255.
+            img = imread(str(x)) / 255.
+            if img_shape and img.shape != img_shape :
+                print( "shape mismatch: {} resized to [{}]".format(img.shape, str(x)) )
+                img = resize( img , img_shape )
             if self.augment:
-                result[i] = self.random_distortion(result[i])
-                
+                img = self.random_distortion(img)
+            
+            assert img.shape == (256, 256, 3) , "shape mismatch: {}[{}]".format(img.shape, str(x))    
+            result[i] = img
+
         result = np.array(result)
         result = result.reshape((*arr.shape, *result[0].shape))
         return result
 
 
-    def next_batch(self, batch_size=None, shuffle=True, seed=None):
+    def next_batch(self, batch_size=None, shuffle=True, seed=None, img_shape = None):
         if seed is not None:
             np.random.seed(seed)
         # if batch size was not specified use the default one
@@ -207,7 +214,7 @@ class SiameseBatchGenerator(BaseBatchGenerator):
         # if flow_from_dir = True, batch_xs - filenames
         # so we should to read files 
         if self.flow_from_dir:
-            batch_xs = self.__get_files_from_names(batch_xs) 
+            batch_xs = self.__get_files_from_names(batch_xs, img_shape = img_shape) 
         return batch_xs, batch_ys
 
 

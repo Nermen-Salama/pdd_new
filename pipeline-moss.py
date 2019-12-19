@@ -8,7 +8,7 @@ Created on Wed Dec 18 17:17:57 2019
 
 from pdd.datasets.grape import load_data
 
-train_data_path, test_data_path = load_data(path='crops_nn.tar', origin ="http://pdd.jinr.ru/crops_nn.tar" , split_on_train_test=True, random_state=13)
+train_data_path, test_data_path = load_data(path='moss-db.tar', origin ="https://github.com/A-Alaa/pdd_new/raw/master/examples/moss-db.zip" , split_on_train_test=True, random_state=13)
 
 
 from pdd.models import get_feature_extractor
@@ -33,7 +33,7 @@ test_batch_gen = SiameseBatchGenerator.from_directory(dirname=test_data_path)
 
 def siams_generator(batch_gen, batch_size=None):
     while True:
-        batch_xs, batch_ys = batch_gen.next_batch(batch_size)
+        batch_xs, batch_ys = batch_gen.next_batch(batch_size, input_shape)
         yield [batch_xs[0], batch_xs[1]], batch_ys
         
 

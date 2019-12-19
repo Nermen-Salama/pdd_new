@@ -33,7 +33,7 @@ test_batch_gen = SiameseBatchGenerator.from_directory(dirname=test_data_path)
 
 def siams_generator(batch_gen, batch_size=None):
     while True:
-        batch_xs, batch_ys = batch_gen.next_batch(batch_size)
+        batch_xs, batch_ys = batch_gen.next_batch(batch_size, img_shape = input_shape)
         yield [batch_xs[0], batch_xs[1]], batch_ys
         
 
