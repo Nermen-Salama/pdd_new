@@ -182,7 +182,7 @@ class SiameseBatchGenerator(BaseBatchGenerator):
         for i, x in enumerate(np.nditer(arr)):
             img = imread(str(x)) / 255.
             if img_shape and img.shape != img_shape :
-                print( "shape mismatch: {} resized to [{}]".format(img.shape, str(x)) )
+#                print( "shape mismatch: {} resized to [{}]".format(img.shape, str(x)) )
                 img = resize( img , img_shape )
             if self.augment:
                 img = self.random_distortion(img)
