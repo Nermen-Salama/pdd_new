@@ -48,6 +48,7 @@ def get_feature_extractor(input_shape):
     x = conv_block(128, (7, 7), batch_norm=True)(x)
     x = conv_block(128, (4, 4), batch_norm=True)(x)
     x = conv_block(256, (4, 4), batch_norm=True)(x)
+    x = conv_block(512, (4, 4), batch_norm=True)(x)
     x = Flatten()(x)
     encoded = Dense(1024, activation='sigmoid')(x)
     return Model(inputs, encoded)
